@@ -23,11 +23,24 @@ const main = async (): Promise<void> => {
     const nLine: string = normalizeString(line);
 
     if (tasks.isPalindromeRecursive(nLine, 0, nLine.length)) {
-      console.log(`Текст {${line}} является палиндромом`);
+      console.log(`[РЕК.]: Текст {${line}} является палиндромом`);
       return;
     }
 
-    console.log(`Текст {${line}} не является палиндромом`);
+    console.log(`[РЕК.]: Текст {${line}} не является палиндромом`);
+  });
+
+  console.log();
+
+  STDIN.split("\n").forEach((line: string) => {
+    const nLine: string = normalizeString(line);
+
+    if (tasks.isPalindromeIterative(nLine)) {
+      console.log(`[ИТЕР.]: Текст {${line}} является палиндромом`);
+      return;
+    }
+
+    console.log(`[ИТЕР.]: Текст {${line}} не является палиндромом`);
   });
 }
 
