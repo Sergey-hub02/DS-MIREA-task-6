@@ -1,4 +1,4 @@
-// import * as tasks from "./modules/tasks/tasks";
+import * as tasks from "./modules/tasks/tasks";
 import * as consts from "./constants";
 import * as fs from "fs";
 
@@ -20,8 +20,14 @@ const normalizeString = (str: string): string => {
  */
 const main = async (): Promise<void> => {
   STDIN.split("\n").forEach((line: string) => {
-    line = normalizeString(line);
-    console.log(line);
+    const nLine: string = normalizeString(line);
+
+    if (tasks.isPalindromeRecursive(nLine, 0, nLine.length)) {
+      console.log(`Текст {${line}} является палиндромом`);
+      return;
+    }
+
+    console.log(`Текст {${line}} не является палиндромом`);
   });
 }
 

@@ -4,7 +4,7 @@
  * @param start       начальная позиция исследуемой подстроки
  * @param end         конечная позиция исследуемой подстроки (не включая эту позицию)
  */
-export const isPalindrome = (str: string, start: number, end: number): boolean => {
+export const isPalindromeRecursive = (str: string, start: number, end: number): boolean => {
   --end;
 
   if (start >= end) {     // строка закончилась
@@ -19,5 +19,5 @@ export const isPalindrome = (str: string, start: number, end: number): boolean =
     return false;
   }
 
-  return (true && isPalindrome(str, start + 1, end));
+  return (true && isPalindromeRecursive(str, start + 1, end));
 }
