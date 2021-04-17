@@ -21,3 +21,21 @@ export const isPalindromeRecursive = (str: string, start: number, end: number): 
 
   return (true && isPalindromeRecursive(str, start + 1, end));
 }
+
+
+/**
+ * Возвращает true, если строка, переданная в качестве аргумента, является палиндромом
+ * @param str         исследуемая строка
+ */
+export const isPalindromeIterative = (str: string): boolean => {
+  let left: number = 0;
+  let right: number = str.length - 1;
+
+  while (left < right) {
+    if (str[left++] !== str[right--]) {
+      return false;
+    }
+  }
+
+  return true;
+}
