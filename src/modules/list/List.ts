@@ -5,7 +5,6 @@ import { cloneDeep } from "lodash";
  * Представляет структуру данных однонаправленный список
  */
 class List<T> {
-  private _size: number;
   private _header: ListNode<T> | undefined;
 
 
@@ -13,16 +12,7 @@ class List<T> {
    * Создаёт пустой список
    */
   public constructor() {
-    this._size = 0;
     this._header = undefined;
-  }
-
-
-  /**
-   * Возвращает количество элементов, которые содержит список
-   */
-  public get size(): number {
-    return this._size;
   }
 
 
@@ -48,8 +38,6 @@ class List<T> {
    * @param elements        добавляемый(е) элемент(ы)
    */
   public add(...elements: Array<T>): void {
-    this._size += elements.length;
-
     elements.forEach((element: T) => {
       let tempNode: ListNode<T> = new ListNode(element);
 
@@ -72,7 +60,7 @@ class List<T> {
    * Возвращает строковое представление однонаправленного списка
    */
   public toString(): string {
-    if (this._size === 0) { // список пуст
+    if (this._header === undefined) { // список пуст
       return "[]";
     }
 

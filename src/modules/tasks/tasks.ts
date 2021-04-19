@@ -1,3 +1,5 @@
+import ListNode from "../node/ListNode";
+
 /**
  * Возвращает true, если строка, переданная в качестве аргумента, является палиндромом
  * @param str         исследуемая строка
@@ -38,4 +40,42 @@ export const isPalindromeIterative = (str: string): boolean => {
   }
 
   return true;
+}
+
+
+/**
+ * Удаляет все вхождения элемента в списке
+ * @param node      головной элемент списка
+ * @param element   информационная часть удаляемого элемента
+ */
+export const removeAllElements = <T>(node: ListNode<T> | undefined, element: T): void => {
+  if (node === undefined || (node.next === undefined && node.value !== element)) { // нельзя удалить элемент со значением undefined, либо функция дошла до последнего элемента, и его не нужно удалять
+    return;
+  }
+
+  if (node.next === undefined && node.value === element) {
+    node = undefined;
+    return;
+  }
+
+  if (node.value === element) { // нужно удалить головной элемент
+    // казалось бы
+    // node = node.next   должно сработать
+    // но TypeScript решил иначе))
+
+    node.value = node.next!.value;  // обмен информационными частями со следующим элементом
+    node.next = node.next!.next;
+    removeAllElements(node, element);
+    return;
+  }
+
+  if (node.next!.value === element) {  // нужно удалить элемент после текущего
+    // node.next - удаляемый узел в списке
+    // node - элемент, который находится перед удаляемым
+    node.next = node.next!.next;
+    removeAllElements(node, element);
+    return;
+  }
+
+  removeAllElements(node.next, element);
 }
