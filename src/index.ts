@@ -1,47 +1,32 @@
-import * as tasks from "./modules/tasks/tasks";
-import * as consts from "./constants";
 import * as fs from "fs";
+
+import * as consts from "./constants";
+import List from "./modules/list/List";
+import { removeAllElements } from "./modules/tasks/tasks";
 
 // подобие потока ввода
 const STDIN: string = fs.readFileSync(consts.PATH_TO_INPUT_FILES + consts.INPUT_FILE_NAME, "utf-8");
 
 
 /**
- * Возвращает строку, в которой удалены все пробелы, и все буквы в нижнем регистре
- * @param str         нормализуемая строка
- */
-const normalizeString = (str: string): string => {
-  return str.split("").filter((char: string) => !(char === " ")).join("").toLowerCase();
-}
-
-
-/**
  * Основная программа
  */
 const main = async (): Promise<void> => {
-  STDIN.split("\n").forEach((line: string) => {
-    const nLine: string = normalizeString(line);
+  let list: List<number> = new List();
 
-    if (tasks.isPalindromeRecursive(nLine, 0, nLine.length)) {
-      console.log(`[РЕК.]: Текст {${line}} является палиндромом`);
-      return;
-    }
+  const addingElements: Array<number> = STDIN.split("\n")[0].split(" ").map((num: string) => +num);
+  const deletingElement: number = +STDIN.split("\n")[1];
 
-    console.log(`[РЕК.]: Текст {${line}} не является палиндромом`);
-  });
+  list.add(...addingElements);
 
+  console.log(`Элемент, который нужно удалить: ${deletingElement}`)
   console.log();
 
-  STDIN.split("\n").forEach((line: string) => {
-    const nLine: string = normalizeString(line);
+  console.log(`До удаления: ${list.toString()}`);
+  removeAllElements(list.header, deletingElement);
 
-    if (tasks.isPalindromeIterative(nLine)) {
-      console.log(`[ИТЕР.]: Текст {${line}} является палиндромом`);
-      return;
-    }
-
-    console.log(`[ИТЕР.]: Текст {${line}} не является палиндромом`);
-  });
+  console.log(`После удаления: ${list.toString()}`);
+  console.log();
 }
 
 
